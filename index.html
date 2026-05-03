@@ -3,24 +3,15 @@
 <head>
 	<title>JSON Bookmarks Viewer</title>
 
-	<meta charset="utf-8">
+    <meta charset="UTF-8" />
 
 	<meta name="author" content="Christian Woltering" />
 	<meta name="keywords" content="JSON Bookmarks Viewer, Mozilla Firefox" />
 	<meta name="description" content="View bookmarks exported from Mozilla Firefox." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 	<link type="text/css" rel="stylesheet" href="css/bookmarks.css" media="screen" />
-	<link type="text/css" rel="stylesheet" href="css/jquery.jscrollpane.css" media="screen" />
 
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-	<script type="text/javascript" src="vendor/jquery.mousewheel.min.js"></script>
-	<script type="text/javascript" src="vendor/jquery.jscrollpane.min.js"></script>
-	<!-- <script type="text/javascript" src="vendor/jquery.highlight.min.js"></script> -->
-
-	<script type="text/javascript" src="js/DropTarget.js"></script>
-	<script type="text/javascript" src="js/MozBookmarks.js"></script>
-	<script type="text/javascript" src="js/WebKitBookmarks.js"></script>
-	<script type="text/javascript" src="js/bookmarks.js"></script>
 </head>
 <body>
 	<div id="sidebar">
@@ -43,15 +34,6 @@
 
 	<div id="error"></div>
 
-<script type="text/javascript">
-<!--
-
-$(document).ready(function() {
-	app.init();
-});
-
-// -->
-</script>
-
+	<script type="module" src="src/main.js"></script>
 </body>
 </html>
