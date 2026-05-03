@@ -1,9 +1,17 @@
 import { DropTarget } from './DropTarget.js'
 import { MozBookmarks } from './MozBookmarks.js'
 import { WebKitBookmarks } from './WebKitBookmarks.js'
+import { createElement } from './HtmlHelper.js'
 
-var drop, db, folders, listview, jsp,
-  current = null; // Element corresponding to the current folder
+let db;
+
+/** @type {HTMLElement} */
+let folders;
+/** @type {HTMLElement} */
+let listview;
+/** @type {HTMLElement} */
+let current = null;
+
 
 if (!Array.prototype.clone) {
   Array.prototype.clone = function() {
@@ -11,19 +19,24 @@ if (!Array.prototype.clone) {
   };
 }
 
+/**
+ * Create bookmark elements.
+ *
+ * @param {HTMLElement} el - HTMLElement
+ */
 var handleClick = function(el) {
   /// <summary>
   /// Handle click on a bookmarks folder to open or close the subtree.
   /// </summary>
   /// <param type="DOM element" name="el">Clicked tree node.</param>
-  var folder, items, i, n, ul, path = el.data("path");
+  const path = el.path;
 
-  folder = db.getFolder(path);
+  const folder = db.getFolder(path);
 
-  if (el.next().hasClass('container')) {
+  if (el.nextSibling.classList.contains('container')) {
     // A subtree exists, so close folder
-    el.next().remove();
-    el.removeClass('active');
+    el.nextSibling.remove();
+    el.classList.remove(['active']);
 
     // TODO: instead of removing elements from the DOM on folder close
     // and re-add on opening a second time, one could just hide the
@@ -33,100 +46,104 @@ var handleClick = function(el) {
     appendFolder(el, folder.folders, path.length);
   }
 
-  ul = $('<ul>');
-  createBookmarks(ul, folder.bookmarks);
-  listview.empty().append(ul);
+  let ul = createElement('ul');
+  ul.replaceChildren(...createBookmarks(folder.bookmarks));
+  listview.replaceChildren(ul);
 
   if (current) {
     // Remove current selection
-    current.removeClass('selected');
+    current.classList.remove(['selected']);
   }
 
   // Set path information
-  updatePath($("#path"), folder.path);
+  updatePath(document.getElementById('path'), folder.path);
 
   // Update selection
-  el.addClass('selected');
+  el.classList.add(['selected']);
   current = el;
 };
 
+/**
+ * Create bookmark elements.
+ *
+ * @param {HTMLElement} el - HTMLElement
+ * @property {string[]} path - The path
+ */
 var updatePath = function(el, path) {
-  var ul, i, n = path.length;
-
-  if (n > 0) {
-    el.empty();
-    for (i = 0; i < n; i += 1) {
-      el.append('<li class="item">' + path[i] + '</li>');
-    }
+  var items = [];
+  for (const i of path) {
+    items.push(createElement('li', ['item'], i));
   }
+  el.replaceChildren(...items);
 };
+/**
+ * Represents a bookmark object
+ * @typedef {Object} Bookmark
+ * @property {string} title - The bookmark title
+ * @property {string} uri - The bookmark uri
+ */
 
-var createBookmarks = function(container, items) {
-  /// <summary>
-  /// Display bookmarks of current folder.
-  /// </summary>
-  /// <param type="Array" name="items">Bookmarks of current folder.</param>
-  var i, n = items.length, b, li, link;
+/**
+ * Create bookmark elements.
+ *
+ * @param {Bookmark[]} items - Bookmarks of current folder.
+ * @return {HTMLElement[]} List of HTML elements containing the bookmarks.
+ */
+var createBookmarks = function(items) {
+  let nodes = [];
+
+  for (const b of items) {
+    let li = createElement('li', ['bookmark']);
+    let uri = createElement('div', ['uri']);
+    uri.appendChild(createElement('a', [], b.uri, [{ name: 'href', value: b.uri}]));
+
+    li.append(uri, createElement('div', ['title'], b.title));
+
+    nodes.push(li);
+  };
   
-  for (i = 0; i < n; i += 1) {
-    b = items[i];
-
-    link = $('<div class="uri"></div>');
-    link.append($('<a href="' + b.uri + '">' + b.uri + '</a>'));
-
-    li = $('<li class="bookmark"></li>');
-    li.append($('<div class="title">' + b.title + '</div>'));
-    li.append(link);
-
-    container.append(li);
-  }
+  return nodes;
 };
 
+/**
+ * Represents a folder object
+ * @typedef {Object} Folder
+ * @property {string} path - The bookmark path
+ * @property {Object} count - Statistics
+ */
+
+/**
+ * Display the next level of folders.
+ *
+ * @param {HTMLElement} parent - The selected node.
+ * @param {Folder[]} folders - Subfolders of current folder.
+ * @param {Number} level - Level of current folder (depth of path in the tree).
+ */
 var appendFolder = function(parent, folders, level) {
-  /// <summary>
-  /// Display the next level of folders.
-  /// </summary>
-  /// <param type="DOM element" name="parent">Clicked node.</param>
-  /// <param type="Array" name="children">Subfolders of current folder.</param>
-  /// <param type="Integer" name="level">Level of current folder (depth of path
-  /// in the tree).</param>
-  /// <returns type="Array">Bookmarks in current folder.</returns>
-  var el, i, count, n = folders.length, container, item;
-  
-  // Create a new container node for folder.
-  container = $('<div class="container L'+ level +'">');
+  let container = createElement('div', ['container', 'L' + level]);
 
-  for (i = 0; i < n; i += 1) {
-    item = folders[i];
+  for (const item of folders) {
+    let folder = createElement('div', ['folder'], item.title);
 
-    // Create new folder element
-    el = $('<div class="folder">' + item.title + '</div>');
-    el.data('path', item.path);
+    folder.path = item.path;
 
-    count = item.count;
-
-    if (count.bookmarks > 0) {
-      el.append('<span class="count">' + count.bookmarks + '</span>');
+    if (item.count.bookmarks > 0) {
+      folder.appendChild(createElement('span', ['count'], item.count.bookmarks + ''));
     }
     
-    if (count.folders === 0) {
-      el.addClass('empty');
+    if (item.count.folders === 0) {
+      folder.classList.add(['empty']);
     }
 
-    container.append(el);
+    container.appendChild(folder);
   }
 
   // Set parent to active and append subfolders.
-  parent.addClass('active');
+  parent.classList.add(['active']);
   parent.after(container);
 };
 
 var loadRoot = function(json) {
-  /// <summary>
-  /// Display all folders of the tree root.
-  /// </summary>
-  var i, n, el, folder, items, count;
-
   // Check Firefox bookmarks format
   if (MozBookmarks.validate(json)) {
     db = new MozBookmarks(json);
@@ -137,26 +154,24 @@ var loadRoot = function(json) {
     return;
   }
 
-  items = db.getRoot();
-  n = items.length;
+  let items = db.getRoot();
 
-  for (i = 0; i < n; i += 1) {
-    folder = items[i];
+  for (const folder of items) {
+    let el = createElement('div', ['folder'], folder.title);
 
-    el = $('<div class="folder">' + folder.title + '</div>');
-    el.data('path', folder.path);
+    el.path = folder.path;
 
-    count = folder.count;
+    let count = folder.count;
 
     if (count.bookmarks > 0) {
-      el.append('<span class="count">' + count.bookmarks + '</span>');
+      el.appendChild(createElement('span', ['count'] , count.bookmarks));
     }
     
     if (count.folders === 0) {
-      el.addClass('empty');
+      el.classList.add(['empty']);
     }
 
-    folders.append(el);
+    folders.appendChild(el);
   }
 };
 
@@ -167,12 +182,12 @@ var loadBookmarksCallback = function(json) {
   /// <param type="JSON object" name="json">Bookmarks in JSON format.</param>
 
   // Clear lists
-  folders.empty();
-  listview.find('ul').remove();
+  folders.replaceChildren();
+  
+  const ul = listview.querySelector('ul');
+  if (ul) ul.remove()
 
   loadRoot(json);
-
-  jsp.reinitialise();
 };
 
 var loadBookmarksAjax = function(url) {
@@ -180,29 +195,36 @@ var loadBookmarksAjax = function(url) {
   /// Load JSON from given url.
   /// </summary>
   /// <param type="String" name="url">Url to load.</param>
-  $.getJSON(url, function(json) {
-    loadBookmarksCallback(json);
-  }).error(function() {
-    showError("Error loading JSON from url.");
-  });
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => loadBookmarksCallback(data))
+    .catch(error => {
+      showError("Error loading JSON from url.", error);
+    });
 };
 
+/**
+ * Display the next level of folders.
+ *
+ * @param {FileList} files - Files of drop event.
+ */
 var loadBookmarksLocal = function(files) {
   /// <summary>
   /// Load JSON from local file.
   /// </summary>
   /// <param type="Array" name="files">List of files (dropped onto browser
   /// window).</param>
-  var file, reader = new FileReader();
-  reader.onloadend = function(ev) {
+  let reader = new FileReader();
+  reader.onloadend = function() {
     try {
       loadBookmarksCallback(JSON.parse(this.result));
-    } catch(ex) {
-      showError("Error loading local JSON file.");
+    } catch (error) {
+      showError("Error loading local JSON file.", error);
     }
   };
 
-  file = files[0];
+  const file = files[0];
 
   if (!file || !file.name) {
     return;
@@ -215,34 +237,29 @@ var loadBookmarksLocal = function(files) {
   }
 };
 
-var showError = function(message) {
+var showError = function(message, error) {
   if (message) {
-    var el = $('#error');
-    el.text(message);
-    el.show();
+    var el = document.getElementById('error');
+    el.textContent = message;
+    el.style.display = 'block';
   }
+  console.error(message, error);
 };
 
 var search = function(text) {
-  var i, n, folder, ul, result;
-
-  if (text.length < 1) {
-    return;
-  }
+  if (text.length < 1)  return;
 
   listview.empty();
-  result = db.search(text);
+  const result = db.search(text);
 
   if (result.count === 0) {
     return;
   }
 
-  updatePath($("#path"), ["Search Results"]);
+  updatePath(document.getElementById("#path"), ["Search Results"]);
 
-  ul = $('<ul>');
-  n = result.folders.length;
-  for (i = 0; i < n; i += 1) {
-    folder = result.folders[i];
+  let ul = createElement('<ul>');
+  for (const folder of result.folders) {
     createBookmarks(ul, folder.items, folder.path); // TODO: visualize folder path
   }
   listview.append(ul);
@@ -252,23 +269,19 @@ var search = function(text) {
 };
 
 var init = function(url) {
-  folders = $('#folders');
-  listview = $('.listview');
-
-  jsp = $('.scroll-container').jScrollPane({
-    maintainPosition: true
-  }).data('jsp');
+  folders = document.getElementById('folders');
+  listview = document.querySelector('.listview');
 
   // Delegate click event on folders
-  folders.on('click', '.folder', function(ev) {
-    handleClick($(ev.currentTarget));
-    jsp.reinitialise();
+  folders.addEventListener('click', (e) => {
+    console.log(e);
+    handleClick(e.target);
   });
 
   // Search box key bindings
-  $('input.search').keyup(function(e) {
+  document.querySelector('input.search').addEventListener('keyup', (e) => {
     if (e.keyCode === 13) { // Enter
-      var text = $(this).val();
+      var text = e.currentTarget.value;
       if (text !== '') {
         search(text);
       }
@@ -276,8 +289,8 @@ var init = function(url) {
   });
 
   // Close any error message on click
-  $('body').click(function(e) {
-    $('#error').hide('fast');
+  document.body.addEventListener('click', () => {
+    document.getElementById('error').style.display = 'none';
   });
 
   // Enable dropping JSON mesh files
