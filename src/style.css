@@ -59,30 +59,12 @@ html, body {
 	color: #fff;
 }
 
-h1 {
+#folders {
 	position: absolute;
-	top: 0px;
-	margin: 0;
-	padding: 15px;
-	font-family: 'Segoe UI';
-	font-size: 22px;
-	font-weight: 400;
-	color: #fff;
-}
-
-h1 .lighter {
-	color: #ace;
-	font: lighter 22px "Segoe UI Light",Segoe UI,Tahoma Light,Arial Light,Helvetica,sans-serif;
-}
-
-.scroll-container {
-	position: absolute;
-	top: 75px;
+	top: 5px;
 	bottom: 5px;
 	width: 300px;
-}
-
-#folders {
+	overflow: auto;
 }
 
 .folder {
@@ -146,9 +128,6 @@ h1 .lighter {
 	left: 301px;
 	right: 0;
 	padding: 0;
-}
-
-#toolbar {
 }
 
 #toolbar .search {

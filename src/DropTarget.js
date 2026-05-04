@@ -1,5 +1,5 @@
 /**
- * Callback for adding two numbers.
+ * Callback for drop event.
  *
  * @callback dropCallback
  * @param {FileList} files - List of files.
@@ -7,17 +7,13 @@
  */
 
 /**
- * Create bookmark elements.
+ * Helper class to handle dropping of files onto the browser window
  *
  * @param {string} selector - Bookmarks of current folder.
  * @param {dropCallback} callback - Bookmarks of current folder.
  * @return {HTMLElement[]} List of HTML elements containing the bookmarks.
  */
 export function DropTarget(selector, callback) {
-  /// <summary>
-  /// Helper class for handling dropping of files onto the
-  /// browser window.
-  /// </summary>
   const dropArea = document.querySelector(selector);
 
   this.preventDefaults = function(e) {
@@ -29,7 +25,6 @@ export function DropTarget(selector, callback) {
     callback(e.dataTransfer.files, e);
   };
 
-  // Prevent default behavior (Prevent file from being opened)
   ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
     dropArea.addEventListener(eventName, this.preventDefaults, false);
   });

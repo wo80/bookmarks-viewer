@@ -2,7 +2,9 @@ import { DropTarget } from './DropTarget.js'
 import { MozBookmarks } from './MozBookmarks.js'
 import { WebKitBookmarks } from './WebKitBookmarks.js'
 import { createElement } from './HtmlHelper.js'
+import * as Types from './types.js';
 
+/** @type {MozBookmarks} */
 let db;
 
 /** @type {HTMLElement} */
@@ -12,28 +14,17 @@ let listview;
 /** @type {HTMLElement} */
 let current = null;
 
-
-if (!Array.prototype.clone) {
-  Array.prototype.clone = function() {
-    return this.slice(0);
-  };
-}
-
 /**
- * Create bookmark elements.
+ * Handle click on a bookmarks folder to open or close the subtree.
  *
- * @param {HTMLElement} el - HTMLElement
+ * @param {HTMLElement} el - Clicked tree node
  */
 var handleClick = function(el) {
-  /// <summary>
-  /// Handle click on a bookmarks folder to open or close the subtree.
-  /// </summary>
-  /// <param type="DOM element" name="el">Clicked tree node.</param>
   const path = el.path;
 
   const folder = db.getFolder(path);
 
-  if (el.nextSibling.classList.contains('container')) {
+  if (el.nextSibling && el.nextSibling.classList.contains('container')) {
     // A subtree exists, so close folder
     el.nextSibling.remove();
     el.classList.remove(['active']);
@@ -64,7 +55,7 @@ var handleClick = function(el) {
 };
 
 /**
- * Create bookmark elements.
+ * Update path.
  *
  * @param {HTMLElement} el - HTMLElement
  * @property {string[]} path - The path
@@ -76,17 +67,11 @@ var updatePath = function(el, path) {
   }
   el.replaceChildren(...items);
 };
-/**
- * Represents a bookmark object
- * @typedef {Object} Bookmark
- * @property {string} title - The bookmark title
- * @property {string} uri - The bookmark uri
- */
 
 /**
  * Create bookmark elements.
  *
- * @param {Bookmark[]} items - Bookmarks of current folder.
+ * @param {Types.Bookmark[]} items - Bookmarks of current folder.
  * @return {HTMLElement[]} List of HTML elements containing the bookmarks.
  */
 var createBookmarks = function(items) {
@@ -106,17 +91,10 @@ var createBookmarks = function(items) {
 };
 
 /**
- * Represents a folder object
- * @typedef {Object} Folder
- * @property {string} path - The bookmark path
- * @property {Object} count - Statistics
- */
-
-/**
  * Display the next level of folders.
  *
  * @param {HTMLElement} parent - The selected node.
- * @param {Folder[]} folders - Subfolders of current folder.
+ * @param {Types.Folder[]} folders - Subfolders of current folder.
  * @param {Number} level - Level of current folder (depth of path in the tree).
  */
 var appendFolder = function(parent, folders, level) {
@@ -175,66 +153,33 @@ var loadRoot = function(json) {
   }
 };
 
-var loadBookmarksCallback = function(json) {
-  /// <summary>
-  /// Callback for loading functions (local file reader or ajax).
-  /// </summary>
-  /// <param type="JSON object" name="json">Bookmarks in JSON format.</param>
-
-  // Clear lists
+/**
+ * Load bookmarks from json object.
+ *
+ * @param {any} json - Bookmark data in json format
+ */
+var loadBookmarksFromJson = function(json) {
   folders.replaceChildren();
-  
-  const ul = listview.querySelector('ul');
-  if (ul) ul.remove()
+  listview.replaceChildren();
 
-  loadRoot(json);
-};
-
-var loadBookmarksAjax = function(url) {
-  /// <summary>
-  /// Load JSON from given url.
-  /// </summary>
-  /// <param type="String" name="url">Url to load.</param>
-
-  fetch(url)
-    .then(response => response.json())
-    .then(data => loadBookmarksCallback(data))
-    .catch(error => {
-      showError("Error loading JSON from url.", error);
-    });
+  try {
+    loadRoot(json);
+  } catch (error) {
+    showError("Error loading json data.", error);
+  }
 };
 
 /**
- * Display the next level of folders.
+ * Load bookmarks from local json file
  *
- * @param {FileList} files - Files of drop event.
+ * @param {FileList} files - Files of drop event
  */
-var loadBookmarksLocal = function(files) {
-  /// <summary>
-  /// Load JSON from local file.
-  /// </summary>
-  /// <param type="Array" name="files">List of files (dropped onto browser
-  /// window).</param>
+var loadBookmarksFromFile = function(files) {
   let reader = new FileReader();
-  reader.onloadend = function() {
-    try {
-      loadBookmarksCallback(JSON.parse(this.result));
-    } catch (error) {
-      showError("Error loading local JSON file.", error);
-    }
+  reader.onloadend = (event) => {
+    loadBookmarksFromJson(JSON.parse(event.target.result));
   };
-
-  const file = files[0];
-
-  if (!file || !file.name) {
-    return;
-  }
-
-  if (file.name.substr(file.name.lastIndexOf('.') + 1) == 'json') {
-    reader.readAsText(file);
-  } else {
-    showError("Error loading file (only JSON supported).");
-  }
+  reader.readAsText(files[0]);
 };
 
 var showError = function(message, error) {
@@ -249,33 +194,35 @@ var showError = function(message, error) {
 var search = function(text) {
   if (text.length < 1)  return;
 
-  listview.empty();
   const result = db.search(text);
 
   if (result.count === 0) {
+    listview.replaceChildren();
     return;
   }
 
-  updatePath(document.getElementById("#path"), ["Search Results"]);
+  updatePath(document.getElementById('path'), ['Search Results']);
 
-  let ul = createElement('<ul>');
+  let ul = createElement('ul');
   for (const folder of result.folders) {
-    createBookmarks(ul, folder.items, folder.path); // TODO: visualize folder path
+    // TODO: visualize folder path
+    ul.append(...createBookmarks(folder.items, folder.path))
   }
-  listview.append(ul);
+  listview.replaceChildren(ul);
   
   //listview.unhighlight()
   //listview.highlight(text);
 };
 
-var init = function(url) {
+export function createApp() {
   folders = document.getElementById('folders');
   listview = document.querySelector('.listview');
 
   // Delegate click event on folders
   folders.addEventListener('click', (e) => {
-    console.log(e);
-    handleClick(e.target);
+    if (e.target.classList.contains('folder')) {
+      handleClick(e.target);
+    }
   });
 
   // Search box key bindings
@@ -293,19 +240,15 @@ var init = function(url) {
     document.getElementById('error').style.display = 'none';
   });
 
-  // Enable dropping JSON mesh files
+  // Enable dropping JSON bookmark files
   if (window.File && window.FileReader) {
-    // File API supported
-    new DropTarget('body', function(files) {
-      loadBookmarksLocal(files);
-    });
+    new DropTarget('body', files => loadBookmarksFromFile(files));
   }
 
-  if (url) { // Load bookmarks file
-    loadBookmarksAjax(url);
+  const s = document.querySelector('script[type="application/ld+json"]');
+
+  if (s) {
+    var json = JSON.parse(s.textContent);
+    loadBookmarksFromJson(json);
   }
-};
-
-let app = { init: init };
-
-export { app} ;
+}

@@ -1,4 +1,3 @@
-import './style.css'
-import { app } from './bookmarks.js'
+import { createApp } from './bookmarks.js'
 
-app.init();
+createApp();

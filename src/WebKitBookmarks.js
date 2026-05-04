@@ -13,7 +13,7 @@
 // Ignore: roots.custom_root.userRoot._reading_list_
 
 var findFolder = function(data, path) {
-  var i, k, n = path.length, folder, o, p = [];
+  let o, p = [];
 
   // Special root folder mapping
   if (path[0] === 0) {
@@ -26,12 +26,12 @@ var findFolder = function(data, path) {
     throw new Error("Invalid path: unsupported root mapping");
   }
 
-  folder = o.children;
+  let folder = o.children;
   p.push(o.name);
 
   if (path.length > 1) {
-    for (i = 1; i < n; i += 1) {
-      k = path[i];
+    for (let i = 1; i < path.length; i += 1) {
+      let k = path[i];
       p.push(folder[k].name);
       folder = folder[k].children;
       if (!folder) {
@@ -43,40 +43,46 @@ var findFolder = function(data, path) {
   return { content: folder, path: p };
 };
 
-var WebKitBookmarks = function(json) {
-  this.data = json;
-};
+export class WebKitBookmarks {
+  constructor(data) {
+    this.data = data;
+  }
 
-WebKitBookmarks.prototype = {
-  isBookmark: function(obj) {
-    return (obj.type && obj.type === "url");
-  },
-  isFolder: function(obj) {
-    return (obj.type && obj.type === "folder");
-  },
-  isSeperator: function() {
+  isBookmark(obj) {
+    return obj.type && obj.type === 'url';
+  }
+
+  isFolder(obj) {
+    return obj.type && obj.type === 'folder';
+  }
+
+  isSeperator() {
     return false;
-  },
-  countItems: function(folder) {
-    var i, n, cb = 0, cf = 0, children = folder.children;
-    
-    n = children.length;
+  }
 
-    for (i = 0; i < n; i += 1) {
-      if (this.isBookmark(children[i])) {
-        cb += 1;
-      } else if (this.isFolder(children[i])) {
-        cf += 1;
+  countItems(folder) {
+    var bookmarksCount = 0, folderCount = 0;
+    
+    for (const i of folder.children) {
+      if (this.isBookmark(i)) {
+        bookmarksCount++;
+      } else if (this.isFolder(i)) {
+        folderCount++;
       }
     }
 
-    return { bookmarks: cb, folders: cf };
-  },
-  getRoot: function() {
-    // Get top level folders (see special path mapping).
-    var o, sub = [], roots = this.data.roots;
+    return { bookmarks: bookmarksCount, folders: folderCount };
+  }
 
-    o = roots.bookmark_bar;
+  get root() {
+    return this.getRoot();
+  }
+
+  getRoot() {
+    // Get top level folders (see special path mapping).
+    let sub = [], roots = this.data.roots;
+
+    let o = roots.bookmark_bar;
     if (o) {
       sub.push({ title: o.name, path: [0], count: this.countItems(o) });
     }
@@ -95,16 +101,16 @@ WebKitBookmarks.prototype = {
     }
 
     return sub;
-  },
-  getFolder: function(path) {
-    var i, n, o, p, items, sub = [], bmk = [],
-      folder = findFolder(this.data, path);
+  }
 
-    items = folder.content;
-    n = items.length;
+  getFolder(path) {
+    const folder = findFolder(this.data, path);
+    const items = folder.content;
 
-    for (i = 0; i < n; i += 1) {
-      o = items[i];
+    let sub = [], bmk = [];
+
+    for (let i = 0; i < items.length; i++) {
+      const o = items[i];
 
       if (this.isBookmark(o)) {
         bmk.push({
@@ -115,7 +121,7 @@ WebKitBookmarks.prototype = {
         if (o.name === "_reading_list_") {
           continue;
         }
-        p = path.clone();
+        let p = path.slice(0);
         p.push(i);
 
         sub.push({
@@ -131,14 +137,11 @@ WebKitBookmarks.prototype = {
       bookmarks: bmk,
       path: folder.path
     };
-  },
-  search: function(text) {
+  }
+
+  /*
+  search(text) {
     return { count: 0 }; // not implemented
   }
-};
-
-WebKitBookmarks.validate = function(data) {
-  return data.checksum && data.roots && data.version === 1;
-};
-
-export { WebKitBookmarks };
+  */
+}

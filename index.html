@@ -1,39 +1,31 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>JSON Bookmarks Viewer</title>
+  <title>bookmarks-viewer</title>
 
-    <meta charset="UTF-8" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<meta name="author" content="Christian Woltering" />
-	<meta name="keywords" content="JSON Bookmarks Viewer, Mozilla Firefox" />
-	<meta name="description" content="View bookmarks exported from Mozilla Firefox." />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-	<link type="text/css" rel="stylesheet" href="src/style.css" media="screen" />
-
+  <link type="text/css" rel="stylesheet" href="src/style.css" media="screen" />
 </head>
 <body>
-	<div id="sidebar">
-		<h1 id="caption"><span class="lighter">JSON</span> Bookmarks</h1>
-		<div class="scroll-container">
-			<div id="folders"></div>
-		</div>
-	</div>
-	<div id="header">
-		<div id="toolbar">
-			<input class="search" type="text" placeholder="Search all bookmarks" />
-		</div>
-		<ul id="path">
-			<li class="item">&nbsp;</li>
-		</ul>
-		<hr />
-	</div>
-	<div class="listview">
-	</div>
+  <div id="sidebar">
+    <div id="folders"></div>
+  </div>
+  <div id="header">
+    <div id="toolbar">
+      <input class="search" type="text" placeholder="Search all bookmarks" />
+    </div>
+    <ul id="path">
+      <li class="item">&nbsp;</li>
+    </ul>
+    <hr />
+  </div>
+  <div class="listview">
+  </div>
 
-	<div id="error"></div>
+  <div id="error"></div>
 
-	<script type="module" src="src/main.js"></script>
+  <script type="module" src="src/main.js"></script>
 </body>
 </html>
