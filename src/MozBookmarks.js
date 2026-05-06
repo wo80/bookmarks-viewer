@@ -78,16 +78,25 @@ export class MozBookmarks {
     this.data = data;
   }
 
+  /**
+   * @param {Types.MozBookmark} obj
+   */
   isBookmark(obj) {
-    return obj.title && obj.uri;
+    return obj.typeCode === 1;
   }
 
+  /**
+   * @param {Types.MozBookmark} obj
+   */
   isFolder(obj) {
-    return obj.title && obj.children;
+    return obj.typeCode === 2 && obj.children;
   }
   
+  /**
+   * @param {Types.MozBookmark} obj
+   */
   isSeperator(obj) {
-    return obj.type && obj.type === 'text/x-moz-place-separator';
+    return obj.typeCode === 3;
   }
 
   countItems(folder) {
@@ -156,7 +165,10 @@ export class MozBookmarks {
     return findBookmarks(text, this.data);
   }
 
-  static validate(data) {
-    return data.guid && data.root === "placesRoot" && data.id === 1;
+  /**
+   * @param {Types.MozBookmark} obj
+   */
+  static validate(obj) {
+    return obj.guid && obj.root === 'placesRoot' && obj.id === 1;
   }
 }

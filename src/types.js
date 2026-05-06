@@ -1,5 +1,18 @@
 
 /**
+ * Represents a Mozilla bookmark object
+ * @typedef {Object} MozBookmark
+ * @property {string} guid - The bookmark guid
+ * @property {string} type - The bookmark type (for example "text/x-moz-place")
+ * @property {number} typeCode - The bookmark type code (1 = x-moz-place, 2 = x-moz-place-container, 3 = x-moz-place-separator)
+ * @property {number} id - The bookmark id
+ * @property {string} title - The bookmark title
+ * @property {string?} uri - The bookmark uri (only with type x-moz-place)
+ * @property {string?} root - The bookmark folder root (only with type x-moz-place-container)
+ * @property {MozBookmark[]?} children - The children (only with type x-moz-place-container)
+ */
+
+/**
  * Represents a bookmark object
  * @typedef {Object} Bookmark
  * @property {string} title - The bookmark title

@@ -1,3 +1,3 @@
-import { createApp } from './bookmarks.js'
+import { createApp } from './App.js'
 
-createApp();
+createApp(document.getElementById('app'));
