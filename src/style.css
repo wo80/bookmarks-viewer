@@ -77,7 +77,7 @@ aside.folders {
   text-overflow: ellipsis;
   height: 25px;
   line-height: 25px;
-  padding: 0 40px 0 20px;
+  padding: 0 5px 0 20px;
   background-repeat: no-repeat;
   background-position: 3px 2px;
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAuCAYAAAAcEfjaAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAAZdEVYdFNvZnR3YXJlAFBhaW50Lk5FVCA1LjEuMTITAUd0AAAAuGVYSWZJSSoACAAAAAUAGgEFAAEAAABKAAAAGwEFAAEAAABSAAAAKAEDAAEAAAACAAAAMQECABEAAABaAAAAaYcEAAEAAABsAAAAAAAAAPJ2AQDoAwAA8nYBAOgDAABQYWludC5ORVQgNS4xLjEyAAADAACQBwAEAAAAMDIzMAGgAwABAAAAAQAAAAWgBAABAAAAlgAAAAAAAAACAAEAAgAEAAAAUjk4AAIABwAEAAAAMDEwMAAAAACDfy8cctDT3wAAAKVJREFUSEvtkLENwkAQBAdSSnANTpDoCUR8ErLIwNEVANVQARG9EEPAvYHlDQ5w9pP93O7f21AYG3ffuPtO/StTOc+ArbsfxHdMVER4CRzNbKXzjwI/StkCj9IFqIGFmZ2T12+A54Y6NnRhchu+PQfdEL+0N4wWgCuw7wsXCoU/sQYalUET83dZVdUNaMW34bOXpWEq6TlLCp2GhBODblbmKgqjcgcpKTpuUPjwYwAAAABJRU5ErkJggg==");
@@ -93,6 +93,11 @@ aside.folders {
 
 .folder.selected {
   background-color:var(--bg-selected);
+}
+
+.folder a {
+  text-decoration: none;
+  color: var(--text-primary);
 }
 
 .folder .count {

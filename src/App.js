@@ -20,8 +20,17 @@ class App {
 
     // Toggle folders on click
     this.folders.addEventListener('click', (e) => {
-      if (e.target.classList.contains('folder')) {
-        this.update_view(e.target);
+      let folder = e.target;
+      // The clicked element might be a 'div', of one of it's
+      // children ('a' or 'span').
+      if (!folder.classList.contains('folder')) {
+        // Make sure it's the 'div' element, since the path
+        // data is stored in that node.
+        folder = folder.parentElement;
+      }
+      if (folder.classList.contains('folder')) {
+        this.update_view(folder);
+        e.preventDefault();
       }
     });
 
@@ -92,24 +101,25 @@ class App {
     this.folders.replaceChildren();
     this.listview.replaceChildren();
     
-    let items = this.db.getRoot();
+    const folders = this.db.getRoot();
 
-    for (const folder of items) {
-      let el = createElement('div', ['folder'], folder.title);
+    for (const item of folders) {
+      let folder = createElement('div', ['folder']);
 
-      el.path = folder.path;
+      folder.path = item.path;
+      folder.appendChild(createElement('a', [], item.title, [{ name: 'href', value: '#'}]));
 
-      let count = folder.count;
+      let count = item.count;
 
       if (count.bookmarks > 0) {
-        el.appendChild(createElement('span', ['count'] , count.bookmarks));
+        folder.appendChild(createElement('span', ['count'] , count.bookmarks));
       }
       
       if (count.folders === 0) {
-        el.classList.add(['empty']);
+        folder.classList.add(['empty']);
       }
 
-      this.folders.appendChild(el);
+      this.folders.appendChild(folder);
     }
   }
 
@@ -137,9 +147,10 @@ class App {
       let container = createElement('div', ['container', 'L' + level]);
 
       for (const item of folder.folders) {
-        let folder = createElement('div', ['folder'], item.title);
+        let folder = createElement('div', ['folder']);
 
         folder.path = item.path;
+        folder.appendChild(createElement('a', [], item.title, [{ name: 'href', value: '#'}]));
 
         if (item.count.bookmarks > 0) {
           folder.appendChild(createElement('span', ['count'], item.count.bookmarks + ''));
