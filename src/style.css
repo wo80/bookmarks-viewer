@@ -9,6 +9,9 @@
   --text-secondary: #666666;
   --text-highlight: #ffffff;
   --border-color: #e5e5e5;
+  --icon-chevron-right: url('data:image/svg+xml,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.5858 6.34317L12 4.92896L19.0711 12L12 19.0711L10.5858 17.6569L16.2427 12L10.5858 6.34317Z" fill="grey" /></svg>');
+  --icon-chevron-down: url('data:image/svg+xml,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.34317 7.75732L4.92896 9.17154L12 16.2426L19.0711 9.17157L17.6569 7.75735L12 13.4142L6.34317 7.75732Z" fill="black" /></svg>');
+  --icon-search: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAARCAYAAADUryzEAAABC0lEQVQ4EdWRsU5CQRBFFzQkFHZWNmKwJtoQLShsDAWJf+gnWNgZSCyMmlASYmMMBaKlBjsJ6rnP2WUeeQUNBZOcnZ07M5vZ3RA23koFN6ijncKe5d7wj/Bicc4tH3BGtmUVv+ZjzR3xrWnJbaVdCAfsOzCHG7iCe/gC5Wowhk9I5g9oo+5CF/qgg4Su8A2HUIUhJCun3eLOuQLLRy2+S2rzB/yY6rVYWKRlOZ/QqLLjf5dbo/aeUwn8G3wQH8G+6VO87nwC+hn9xjVITybRW5PgHPxkPt8jePCCn0D6BJ6hAsrNYARPoMnqIG0MmS1PEPUi30C8APVcwiuEbS0r2sDqdvBZ84p9ay77AwILKTOI12mTAAAAAElFTkSuQmCC")
 }
 
 /* Dark mode */
@@ -23,6 +26,9 @@
     --text-secondary: #a0a0a0;
     --text-highlight: #ffffff;
     --border-color: #404040;
+    --icon-chevron-right: url('data:image/svg+xml,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.5858 6.34317L12 4.92896L19.0711 12L12 19.0711L10.5858 17.6569L16.2427 12L10.5858 6.34317Z" fill="grey" /></svg>');
+    --icon-chevron-down: url('data:image/svg+xml,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.34317 7.75732L4.92896 9.17154L12 16.2426L19.0711 9.17157L17.6569 7.75735L12 13.4142L6.34317 7.75732Z" fill="white" /></svg>');
+    --icon-search: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAARCAYAAADUryzEAAABC0lEQVQ4EdWRsU5CQRBFFzQkFHZWNmKwJtoQLShsDAWJf+gnWNgZSCyMmlASYmMMBaKlBjsJ6rnP2WUeeQUNBZOcnZ07M5vZ3RA23koFN6ijncKe5d7wj/Bicc4tH3BGtmUVv+ZjzR3xrWnJbaVdCAfsOzCHG7iCe/gC5Wowhk9I5g9oo+5CF/qgg4Su8A2HUIUhJCun3eLOuQLLRy2+S2rzB/yY6rVYWKRlOZ/QqLLjf5dbo/aeUwn8G3wQH8G+6VO87nwC+hn9xjVITybRW5PgHPxkPt8jePCCn0D6BJ6hAsrNYARPoMnqIG0MmS1PEPUi30C8APVcwiuEbS0r2sDqdvBZ84p9ay77AwILKTOI12mTAAAAAElFTkSuQmCC")
   }
 }
 
@@ -71,6 +77,7 @@ aside.folders {
 }
 
 .folder {
+  color: red;
   cursor: default;
   margin: 0;
   white-space: nowrap;
@@ -79,8 +86,9 @@ aside.folders {
   line-height: 25px;
   padding: 0 5px 0 20px;
   background-repeat: no-repeat;
-  background-position: 3px 2px;
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAuCAYAAAAcEfjaAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAAZdEVYdFNvZnR3YXJlAFBhaW50Lk5FVCA1LjEuMTITAUd0AAAAuGVYSWZJSSoACAAAAAUAGgEFAAEAAABKAAAAGwEFAAEAAABSAAAAKAEDAAEAAAACAAAAMQECABEAAABaAAAAaYcEAAEAAABsAAAAAAAAAPJ2AQDoAwAA8nYBAOgDAABQYWludC5ORVQgNS4xLjEyAAADAACQBwAEAAAAMDIzMAGgAwABAAAAAQAAAAWgBAABAAAAlgAAAAAAAAACAAEAAgAEAAAAUjk4AAIABwAEAAAAMDEwMAAAAACDfy8cctDT3wAAAKVJREFUSEvtkLENwkAQBAdSSnANTpDoCUR8ErLIwNEVANVQARG9EEPAvYHlDQ5w9pP93O7f21AYG3ffuPtO/StTOc+ArbsfxHdMVER4CRzNbKXzjwI/StkCj9IFqIGFmZ2T12+A54Y6NnRhchu+PQfdEL+0N4wWgCuw7wsXCoU/sQYalUET83dZVdUNaMW34bOXpWEq6TlLCp2GhBODblbmKgqjcgcpKTpuUPjwYwAAAABJRU5ErkJggg==");
+  background-position: 2px center;
+  background-size: 1.2em;
+  background-image: var(--icon-chevron-right);
 }
 
 .folder:hover {
@@ -88,7 +96,7 @@ aside.folders {
 }
 
 .folder.active {
-  background-position:3px -22px;
+  background-image: var(--icon-chevron-down);
 }
 
 .folder.selected {
@@ -108,17 +116,11 @@ aside.folders {
   text-align: right;
 }
 
-.L1 .folder { padding-left: 35px; background-position:17px 2px; }
-.L2 .folder { padding-left: 50px; background-position:32px 2px; }
-.L3 .folder { padding-left: 65px; background-position:47px 2px; }
-.L4 .folder { padding-left: 80px; background-position:62px 2px; }
-.L5 .folder { padding-left: 95px; background-position:77px 2px; }
-
-.L1 .folder.active { background-position:17px -22px; }
-.L2 .folder.active { background-position:32px -22px; }
-.L3 .folder.active { background-position:47px -22px; }
-.L4 .folder.active { background-position:62px -22px; }
-.L5 .folder.active { background-position:77px -22px; }
+.L1 .folder { padding-left: 35px; background-position:17px center; }
+.L2 .folder { padding-left: 50px; background-position:32px center; }
+.L3 .folder { padding-left: 65px; background-position:47px center; }
+.L4 .folder { padding-left: 80px; background-position:62px center; }
+.L5 .folder { padding-left: 95px; background-position:77px center; }
 
 .folder.empty { background-image:none; }
 
@@ -132,10 +134,13 @@ aside.folders {
   display:none;
   width: 80%;
   margin: 10px auto;
-  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAARCAYAAADUryzEAAABC0lEQVQ4EdWRsU5CQRBFFzQkFHZWNmKwJtoQLShsDAWJf+gnWNgZSCyMmlASYmMMBaKlBjsJ6rnP2WUeeQUNBZOcnZ07M5vZ3RA23koFN6ijncKe5d7wj/Bicc4tH3BGtmUVv+ZjzR3xrWnJbaVdCAfsOzCHG7iCe/gC5Wowhk9I5g9oo+5CF/qgg4Su8A2HUIUhJCun3eLOuQLLRy2+S2rzB/yY6rVYWKRlOZ/QqLLjf5dbo/aeUwn8G3wQH8G+6VO87nwC+hn9xjVITybRW5PgHPxkPt8jePCCn0D6BJ6hAsrNYARPoMnqIG0MmS1PEPUi30C8APVcwiuEbS0r2sDqdvBZ84p9ay77AwILKTOI12mTAAAAAElFTkSuQmCC") no-repeat 6px 4px;
+  background-repeat: no-repeat;
+  background-position: 6px center;
+  background-size: 1.2em;
+  background-image: var(--icon-search);
 }
 
-::-moz-placeholder { color:#aaa; font-style: italic; }
+::placeholder { color:#aaa; font-style: italic; }
 
 #header hr {
   margin: 5px auto;
@@ -157,17 +162,21 @@ header .path {
 }
 
 header .path .item {
-  border: solid white;
-  border-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAaCAYAAABozQZiAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwAAADsABataJCQAAABh0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC41ZYUyZQAAANRJREFUOE+dzq0RwkAYhOEIBAKJQCApIQJBKQgkfSApAXEqJpkoCrgSkEgkJSAQx+5MMnOXrNhBPAN577ufKqX0NxldMrpkdMnoktElo0tGl4wuGalt2xPs1NpIxq7rakjwxgEHNUMyEjYe4YPNX/5XM7OQ6/t+z9uBr7hM14sPBQdssfE1HHDL14pBBRvOw9P5gjpfKwZzMcYFbwLe+OALpjPFx6hpmjVui9yI3zus1NwsEIY38IQrX6BmSEYKISxVz8noktElo0tGl4wuGV0yelL1A3EUfUovudH1AAAAAElFTkSuQmCC") 1 1 1 15 fill;
-  border-width: 1px 1px 1px 15px;
+  background-image: var(--icon-chevron-right);
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 1.2em;
   cursor: default;
   display: inline-block;
-  padding: 0 7px 0 5px;
+  padding: 0 17px 0 5px;
 }
 
 header .path .item:first-child {
-  border-width: 1px 0;
   padding-left: 0;
+}
+
+header .path .item:last-child {
+  background-image: none;
 }
 
 .bookmarks {

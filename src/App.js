@@ -21,7 +21,7 @@ class App {
     // Toggle folders on click
     this.folders.addEventListener('click', (e) => {
       let folder = e.target;
-      // The clicked element might be a 'div', of one of it's
+      // The clicked element might be a 'div', or one of it's
       // children ('a' or 'span').
       if (!folder.classList.contains('folder')) {
         // Make sure it's the 'div' element, since the path
