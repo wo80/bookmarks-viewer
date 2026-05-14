@@ -1,7 +1,7 @@
 
 /**
  * Represents a Mozilla bookmark object
- * @typedef {Object} MozBookmark
+ * @typedef {object} MozJsonBookmark
  * @property {string} guid - The bookmark guid
  * @property {string} type - The bookmark type (for example "text/x-moz-place")
  * @property {number} typeCode - The bookmark type code (1 = x-moz-place, 2 = x-moz-place-container, 3 = x-moz-place-separator)
@@ -9,7 +9,7 @@
  * @property {string} title - The bookmark title
  * @property {string?} uri - The bookmark uri (only with type x-moz-place)
  * @property {string?} root - The bookmark folder root (only with type x-moz-place-container)
- * @property {MozBookmark[]?} children - The children (only with type x-moz-place-container)
+ * @property {MozJsonBookmark[]?} children - The children (only with type x-moz-place-container)
  */
 
 /**
@@ -23,21 +23,22 @@
  * Represents a folder object
  * @typedef {Object} BookmarkFolder
  * @property {Bookmark[]} items - Array of bookmarks in the folder
- * @property {number} path - The folder path 
+ * @property {string[]} path - The folder path
  */
 
 /**
  * Represents a search result object
- * @typedef {Object} BookmarkSearchResult
- * @property {BookmarkFolder[]} folders - List of bookmark folders
+ * @typedef {Object} SearchResult
+ * @property {BookmarkFolder[]} folders - List of folders containing matching bookmarks
  * @property {number} count - The total number of matches
  */
 
 /**
- * Represents a folder object
- * @typedef {Object} Folder
- * @property {string} path - The bookmark path
- * @property {Object} count - Statistics
+ * Represents a select result object
+ * @typedef {Object} SelectResult
+ * @property {{title: string, path: number[], stats: {bookmarks:number, folders:number}}[]} folders - Subfolders of the selected path
+ * @property {Bookmark[]} bookmarks - Bookmarks of the selected path
+ * @property {string[]} path - The folder names of the selected path
  */
 
 export const Types = {};

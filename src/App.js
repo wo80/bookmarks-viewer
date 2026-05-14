@@ -118,7 +118,7 @@ class App {
     this.folders.replaceChildren();
     this.listview.replaceChildren();
     
-    const folders = this.db.getRoot();
+    const folders = this.db.root;
 
     for (const item of folders) {
       let folder = createElement('div', ['folder']);
@@ -126,13 +126,13 @@ class App {
       folder.path = item.path;
       folder.appendChild(createElement('a', [], item.title, [{ name: 'href', value: '#'}]));
 
-      let count = item.count;
+      let stats = item.stats;
 
-      if (count.bookmarks > 0) {
-        folder.appendChild(createElement('span', ['count'] , count.bookmarks));
+      if (stats.bookmarks > 0) {
+        folder.appendChild(createElement('span', ['count'] , stats.bookmarks));
       }
       
-      if (count.folders === 0) {
+      if (stats.folders === 0) {
         folder.classList.add(['empty']);
       }
 
@@ -148,7 +148,7 @@ class App {
   update_view(parent) {
     const path = parent.path;
 
-    const folder = this.db.getFolder(path);
+    const folder = this.db.select(path);
 
     if (parent.nextSibling && parent.nextSibling.classList.contains('container')) {
       // A subtree exists, so close folder
@@ -157,10 +157,14 @@ class App {
 
       // TODO: instead of removing elements from the DOM on folder close
       // and re-add on opening a second time, one could just hide the
-      // subtree and then check if it already exists and show again...
+      // subtree and then check if it already exists and show again
     } else {
       // No subtree, so append folder
       const level = path.length;
+
+      // TODO: stylesheet currently defines 5 levels, so we should 
+      // consider checking for max-depth
+
       let container = createElement('div', ['container', 'L' + level]);
 
       for (const item of folder.folders) {
@@ -169,11 +173,11 @@ class App {
         folder.path = item.path;
         folder.appendChild(createElement('a', [], item.title, [{ name: 'href', value: '#'}]));
 
-        if (item.count.bookmarks > 0) {
-          folder.appendChild(createElement('span', ['count'], item.count.bookmarks + ''));
+        if (item.stats.bookmarks > 0) {
+          folder.appendChild(createElement('span', ['count'], item.stats.bookmarks + ''));
         }
         
-        if (item.count.folders === 0) {
+        if (item.stats.folders === 0) {
           folder.classList.add(['empty']);
         }
 
@@ -254,7 +258,7 @@ class App {
     let ul = createElement('ul');
     for (const folder of result.folders) {
       // TODO: visualize folder path
-      ul.append(...this.create_bookmarks(folder.items, folder.path))
+      ul.append(...this.create_bookmarks(folder.items))
     }
     this.listview.replaceChildren(ul);
     
