@@ -5,7 +5,25 @@ import { createElement } from './HtmlHelper.js'
 import * as Types from './types.js';
 
 class App {
+  /**
+   * App constructor.
+   *
+   * @param {HTMLElement} root - The app root element
+   */
   constructor(root) {
+    root.innerHTML = `
+<aside class="folders"></aside>
+<main>
+  <header>
+    <ul class="path"></ul>
+    <div class="toolbar">
+      <input class="search" type="text" placeholder="Search all bookmarks" />
+    </div>
+  </header>
+  <div class="bookmarks"></div>
+</main>
+`;
+
     /** @type {HTMLElement} */
     this.root = root;
 
@@ -56,17 +74,16 @@ class App {
     if (s) {
       this.initialize(s.textContent);
     }
-    /*
+    
     // Search box key bindings
     root.querySelector('input.search').addEventListener('keyup', (e) => {
       if (e.keyCode === 13) { // Enter
         var text = e.currentTarget.value;
         if (text !== '') {
-          search(text);
+          this.search(text);
         }
       }
     });
-    */
   }
 
   /**
@@ -232,7 +249,7 @@ class App {
       return;
     }
 
-    this.update_path(document.getElementById('path'), ['Search Results']);
+    this.update_path(this.root.querySelector('header .path'), ['Search Results']);
 
     let ul = createElement('ul');
     for (const folder of result.folders) {

@@ -1,3 +1,3 @@
 import { createApp } from './App.js'
 
-createApp(document.getElementById('app'));
+createApp(document.querySelector('#app'));

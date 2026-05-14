@@ -11,7 +11,8 @@
   --border-color: #e5e5e5;
   --icon-chevron-right: url('data:image/svg+xml,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.5858 6.34317L12 4.92896L19.0711 12L12 19.0711L10.5858 17.6569L16.2427 12L10.5858 6.34317Z" fill="grey" /></svg>');
   --icon-chevron-down: url('data:image/svg+xml,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.34317 7.75732L4.92896 9.17154L12 16.2426L19.0711 9.17157L17.6569 7.75735L12 13.4142L6.34317 7.75732Z" fill="black" /></svg>');
-  --icon-search: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAARCAYAAADUryzEAAABC0lEQVQ4EdWRsU5CQRBFFzQkFHZWNmKwJtoQLShsDAWJf+gnWNgZSCyMmlASYmMMBaKlBjsJ6rnP2WUeeQUNBZOcnZ07M5vZ3RA23koFN6ijncKe5d7wj/Bicc4tH3BGtmUVv+ZjzR3xrWnJbaVdCAfsOzCHG7iCe/gC5Wowhk9I5g9oo+5CF/qgg4Su8A2HUIUhJCun3eLOuQLLRy2+S2rzB/yY6rVYWKRlOZ/QqLLjf5dbo/aeUwn8G3wQH8G+6VO87nwC+hn9xjVITybRW5PgHPxkPt8jePCCn0D6BJ6hAsrNYARPoMnqIG0MmS1PEPUi30C8APVcwiuEbS0r2sDqdvBZ84p9ay77AwILKTOI12mTAAAAAElFTkSuQmCC")
+  --icon-search: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="grey" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="miter"><g><circle cx="11" cy="11" r="9" fill="none"/><line x1="17.5" y1="17.5" x2="22" y2="22"/></g></svg>');
+  --icon-searchx: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="grey" fill-rule="evenodd" d="m16.325 14.899l5.38 5.38a1.008 1.008 0 0 1-1.427 1.426l-5.38-5.38a8 8 0 1 1 1.426-1.426M10 16a6 6 0 1 0 0-12a6 6 0 0 0 0 12"></path></svg>');
 }
 
 /* Dark mode */
@@ -28,7 +29,8 @@
     --border-color: #404040;
     --icon-chevron-right: url('data:image/svg+xml,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.5858 6.34317L12 4.92896L19.0711 12L12 19.0711L10.5858 17.6569L16.2427 12L10.5858 6.34317Z" fill="grey" /></svg>');
     --icon-chevron-down: url('data:image/svg+xml,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.34317 7.75732L4.92896 9.17154L12 16.2426L19.0711 9.17157L17.6569 7.75735L12 13.4142L6.34317 7.75732Z" fill="white" /></svg>');
-    --icon-search: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAARCAYAAADUryzEAAABC0lEQVQ4EdWRsU5CQRBFFzQkFHZWNmKwJtoQLShsDAWJf+gnWNgZSCyMmlASYmMMBaKlBjsJ6rnP2WUeeQUNBZOcnZ07M5vZ3RA23koFN6ijncKe5d7wj/Bicc4tH3BGtmUVv+ZjzR3xrWnJbaVdCAfsOzCHG7iCe/gC5Wowhk9I5g9oo+5CF/qgg4Su8A2HUIUhJCun3eLOuQLLRy2+S2rzB/yY6rVYWKRlOZ/QqLLjf5dbo/aeUwn8G3wQH8G+6VO87nwC+hn9xjVITybRW5PgHPxkPt8jePCCn0D6BJ6hAsrNYARPoMnqIG0MmS1PEPUi30C8APVcwiuEbS0r2sDqdvBZ84p9ay77AwILKTOI12mTAAAAAElFTkSuQmCC")
+    --icon-search: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="grey" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="miter"><g><circle cx="11" cy="11" r="9" fill="none"/><line x1="17.5" y1="17.5" x2="22" y2="22"/></g></svg>');
+    --icon-searchx: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="grey" fill-rule="evenodd" d="m16.325 14.899l5.38 5.38a1.008 1.008 0 0 1-1.427 1.426l-5.38-5.38a8 8 0 1 1 1.426-1.426M10 16a6 6 0 1 0 0-12a6 6 0 0 0 0 12"></path></svg>');
   }
 }
 
@@ -126,39 +128,49 @@ aside.folders {
 
 /* Bookmarks */
 
-#toolbar .search {
+main {
+  width: 100%;
+}
+
+.toolbar {
+  width: 80%;
+  margin: 0 auto;
+  padding: 5px;
+}
+
+.search {
   font-size: 1em;
   border: 1px solid var(--border-color);
   border-radius: 2px;
   padding: 5px 5px 5px 25px;
-  display:none;
-  width: 80%;
-  margin: 10px auto;
+  width: 100%;
   background-repeat: no-repeat;
-  background-position: 6px center;
+  background-position: 5px center;
   background-size: 1.2em;
   background-image: var(--icon-search);
 }
 
-::placeholder { color:#aaa; font-style: italic; }
+.search:active, .search:focus, .search:focus-visible  {
+  border: 1px solid var(--bg-highlight);
+  outline: none;
+}
 
-#header hr {
+.search::placeholder {
+  color:#bbb;
+}
+
+hr {
   margin: 5px auto;
   border: none;
   border-bottom: 1px solid #dedede;
   width: 90%;
 }
 
-header {
-  height: 25px;
-  line-height: 25px;
-}
-
 header .path {
+  line-height: 25px;
   display: inline;
   list-style-type: none;
-  margin: 10px;
-  padding: 0;
+  padding: 0 10px;
 }
 
 header .path .item {
