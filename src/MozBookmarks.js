@@ -7,15 +7,6 @@ export class MozBookmarks {
   }
 
   /**
-   * Gets the root element of the bookmarks object.
-   * 
-   * @return {Types.MozJsonBookmark} The root element of the bookmarks object.
-   */
-  get root() {
-    return this.select([]).folders;
-  }
-
-  /**
    * Select given path of the bookmarks folder tree and return its content.
    * 
    * @param {number[]} path

@@ -4,37 +4,42 @@ import * as Types from './types.js';
 
 export class BookmarkDb {
   /** @type {MozBookmarks} */
-  #backend;
+  #backend = null;
   
   #callbacks = { 'select': [], 'search': [] };
 
   constructor() {
-    this.#backend = null;
   }
 
   /**
-   * Gets the root element of the bookmarks object.
+   * Load the database backend.
    * 
-   * @return {Types.MozJsonBookmark} The root element of the bookmarks object.
+   * @param {Object} json The json object containing the bookmarks
    */
-  get root() {
-    return this.#backend.root;
-  }
-
   load(json) {
     if (MozBookmarks.validate(json)) {
       this.#backend = new MozBookmarks(json);
     } else if (WebKitBookmarks.validate(json)) {
       this.#backend = new WebKitBookmarks(json);
     } else {
-      throw new Error("Unknown json format");
+      throw new Error("unknown json format");
     }
   }
 
+  /**
+   * Unload the database backend and clear callbacks.
+   */
   unload() {
     this.#callbacks = { 'select': [], 'search': [] };
+    this.#backend = null;
   }
 
+  /**
+   * Subscribe to 'select' or 'search' events.
+   * 
+   * @param {string} eventType The type of event to subscribe to
+   * @param {function} callback The callback
+   */
   subscribe(eventType, callback) {
     if(typeof callback !== 'function') return;
 
@@ -43,8 +48,18 @@ export class BookmarkDb {
     }
   }
 
-  select(path) {
+  /**
+   * Select given path of the bookmarks folder tree and return its content.
+   * 
+   * @param {number[]} path The path of the folder to select
+   * @param {any} data A general purpose payload that is passed to event listeners
+   * @return {Types.SelectResult} The select result object.
+   */
+  select(path, data) {
     const result = this.#backend.select(path);
+
+    result.type = 'select';
+    result.data = data;
 
     for (const listener of this.#callbacks['select']) {
       listener(result);
@@ -53,8 +68,17 @@ export class BookmarkDb {
     return result;
   }
 
+  /**
+   * Search all bookmarks for given text
+   *
+   * @param {string} text - The string to search for
+   * @return {Types.SearchResult} The search result object
+   */
   search(text) {
     const result = this.#backend.search(text);
+
+    result.type = 'search';
+    result.path =  ['Search Results'];
 
     for (const listener of this.#callbacks['search']) {
       listener(result);

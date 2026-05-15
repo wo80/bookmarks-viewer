@@ -14,6 +14,15 @@
 
 /**
  * Represents a bookmark object
+ * @typedef {Object} BookmarkDb
+ * @property {MozJsonBookmark} root - ...
+ * @property {(eventType: string, callback: function) => void} subscribe - ...
+ * @property {(path: number[]) => SelectResult} select - ...
+ * @property {(text: string) => SearchResult} search - ...
+ */
+
+/**
+ * Represents a bookmark object
  * @typedef {Object} Bookmark
  * @property {string} title - The bookmark title
  * @property {string} uri - The bookmark uri 

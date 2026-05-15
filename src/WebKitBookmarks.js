@@ -17,32 +17,11 @@ export class WebKitBookmarks {
     this.data = data;
   }
 
-  get root() {
-    // Get top level folders (see special path mapping).
-    let sub = [], roots = this.data.roots;
-
-    let o = roots.bookmark_bar;
-    if (o) {
-      sub.push({ title: o.name, path: [0], stats: this.#stats(o) });
-    }
-
-    /* No longer used in latest Chrome versions? */
-    if (roots.custom_root) {
-      o = roots.custom_root.userRoot
-      if (o) {
-        sub.push({ title: o.name, path: [1], stats: this.#stats(o) });
-      }
-    }
-
-    o = roots.other;
-    if (o) {
-      sub.push({ title: o.name, path: [2], stats: this.#stats(o) });
-    }
-
-    return sub;
-  }
-
   select(path) {
+    if (path.length === 0) {
+      return this.#root();
+    }
+
     const folder = this.#find_folder(this.data, path);
     const items = folder.content;
 
@@ -133,5 +112,30 @@ export class WebKitBookmarks {
     }
 
     return { content: folder, path: p };
+  }
+
+  #root() {
+    // Get top level folders (see special path mapping).
+    let sub = [], roots = this.data.roots;
+
+    let o = roots.bookmark_bar;
+    if (o) {
+      sub.push({ title: o.name, path: [0], stats: this.#stats(o) });
+    }
+
+    /* No longer used in latest Chrome versions? */
+    if (roots.custom_root) {
+      o = roots.custom_root.userRoot
+      if (o) {
+        sub.push({ title: o.name, path: [1], stats: this.#stats(o) });
+      }
+    }
+
+    o = roots.other;
+    if (o) {
+      sub.push({ title: o.name, path: [2], stats: this.#stats(o) });
+    }
+
+    return sub;
   }
 }
