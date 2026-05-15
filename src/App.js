@@ -1,6 +1,5 @@
 import { DropTarget } from './DropTarget.js'
-import { MozBookmarks } from './MozBookmarks.js'
-import { WebKitBookmarks } from './WebKitBookmarks.js'
+import { BookmarkDb } from './BookmarkDb.js'
 import { createElement } from './HtmlHelper.js'
 import * as Types from './types.js';
 
@@ -33,8 +32,8 @@ class App {
     /** @type {HTMLElement} */
     this.listview = root.querySelector('main .bookmarks');
 
-    /** @type {MozBookmarks} */
-    this.db = null;
+    /** @type {BookmarkDb} */
+    this.db = new BookmarkDb();
 
     // Toggle folders on click
     this.folders.addEventListener('click', (e) => {
@@ -105,15 +104,7 @@ class App {
    * @param {Object} json - The json bookmark data
    */
   load(json) {
-    // Check Firefox bookmarks format
-    if (MozBookmarks.validate(json)) {
-      this.db = new MozBookmarks(json);
-    } else if (WebKitBookmarks.validate(json)) {
-      this.db = new WebKitBookmarks(json);
-    } else {
-      this.error("Unknown JSON format");
-      return;
-    }
+    this.db.load(json);
 
     this.folders.replaceChildren();
     this.listview.replaceChildren();
