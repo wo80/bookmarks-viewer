@@ -15,13 +15,8 @@ export class BookmarkView {
     /** @type {Types.BookmarkDb} */
     this.db = db;
 
-    db.subscribe('select', e => {
-      this.update(e);
-    });
-
-    db.subscribe('search', e => {
-      this.update(e);
-    });
+    db.subscribe('select', e => this.update(e));
+    db.subscribe('search', e => this.update(e));
   }
 
   update(e) {

@@ -15,13 +15,8 @@ export class HeaderView {
     /** @type {Types.BookmarkDb} */
     this.db = db;
 
-    db.subscribe('select', e => {
-      this.update(e);
-    });
-
-    db.subscribe('search', e => {
-      this.update(e);
-    });
+    db.subscribe('select', e => this.update(e));
+    db.subscribe('search', e => this.update(e));
     
     // Search box key bindings
     root.querySelector('input.search').addEventListener('keyup', (e) => {

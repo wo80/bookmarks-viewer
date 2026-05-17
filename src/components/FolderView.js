@@ -15,9 +15,7 @@ export class FolderView {
     /** @type {Types.BookmarkDb} */
     this.db = db;
     
-    db.subscribe('select', e => {
-      this.update(e);
-    });
+    db.subscribe('select', e => this.update(e));
 
     // Toggle folders on click
     root.addEventListener('click', (e) => {
@@ -41,12 +39,10 @@ export class FolderView {
   /**
    * Handle click on a bookmarks folder to open or close the subtree.
    *
-   * @param {HTMLElement} parent - Clicked tree node
+   * @param {Object} e - Object sent by the BookmarkDb 'select' event.
    */
-  update(folder) {
-    const path = folder.path;
-
-    const parent = folder.data ? folder.data.target : this.root;
+  update(e) {
+    const parent = e.data ? e.data.target : this.root;
 
     const next = parent.nextElementSibling;
 
@@ -60,15 +56,15 @@ export class FolderView {
       // subtree and then check if it already exists and show again
     } else {
       // No subtree, so append folder
-      const level = path.length;
+      const level = e.path.length;
 
       // TODO: stylesheet currently defines 5 levels, so we should 
       // consider checking for max-depth
 
-      // The ne folder elements;
+      // The new folder elements
       let folders = [];
 
-      for (const item of folder.folders) {
+      for (const item of e.folders) {
         let folder = createElement('div', ['folder']);
 
         folder.path = item.path;
@@ -85,6 +81,7 @@ export class FolderView {
         folders.push(folder);
       }
 
+      // Append subfolders
       if (level === 0) {
         this.root.append(...folders);
       } else {
@@ -93,7 +90,7 @@ export class FolderView {
         parent.after(container);
       }
 
-      // Set parent to active and append subfolders.
+      // Set parent to active
       parent.classList.add(['active']);
     }
 

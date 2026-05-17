@@ -50,7 +50,7 @@ class App {
     }
 
     // Check for inline bookmarks data.
-    const s = document.querySelector('script[type="application/ld+json"]');
+    const s = document.querySelector('script[type="application/json"]');
     if (s) {
       this.load(s.textContent);
     }
