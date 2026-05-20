@@ -17,6 +17,15 @@ export class WebKitBookmarks {
     this.data = data;
   }
 
+  /**
+   * Returns true, if given object can be parsed as Mozilla json bookmarks.
+   * 
+   * @param {Types.MozJsonBookmark} obj
+   */
+  static validate(obj) {
+		return obj.checksum && obj.roots && obj.version === 1;
+  }
+  
   select(path) {
     if (path.length === 0) {
       return this.#root();
@@ -31,22 +40,12 @@ export class WebKitBookmarks {
       const o = items[i];
 
       if (this.#is_bookmark(o)) {
-        bmk.push({
-          title: o.name,
-          uri: o.url
-        });
+        bmk.push({ title: o.name, uri: o.url });
       } else if (this.#is_folder(o)) {
         if (o.name === "_reading_list_") {
           continue;
         }
-        let p = path.slice(0);
-        p.push(i);
-
-        sub.push({
-          title: o.name,
-          path: p,
-          stats: this.#stats(o)
-        });
+        sub.push({ title: o.name, path: path.concat(i), stats: this.#stats(o) });
       }
     }
 
@@ -136,6 +135,10 @@ export class WebKitBookmarks {
       sub.push({ title: o.name, path: [2], stats: this.#stats(o) });
     }
 
-    return sub;
+    return {
+      folders: sub,
+      bookmarks: [],
+      path: []
+    };
   }
 }

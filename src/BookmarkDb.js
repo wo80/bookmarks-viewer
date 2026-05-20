@@ -10,6 +10,20 @@ export class BookmarkDb {
 
   constructor() {
   }
+  
+  /**
+   * Gets the name of the backend.
+   * 
+   * @return {string} The name of the backend
+   */
+  get backend() {
+    if (this.#backend instanceof MozBookmarks) {
+      return 'MozBookmarks';
+    } else if (this.#backend instanceof WebKitBookmarks) {
+      return 'WebKitBookmarks';
+    }
+    return '';
+  }
 
   /**
    * Load the database backend.
