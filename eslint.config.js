@@ -8,7 +8,7 @@ export default defineConfig([
 	files: ["**/*.js"],
 	plugins: { js },
 	extends: ["js/recommended"],
-	rules: { "no-unused-vars": "warn" },
+	rules: { "no-unused-vars": ["warn", { "varsIgnorePattern": "Types" }] },
 	languageOptions: { globals: globals.browser }
   }
 ]);

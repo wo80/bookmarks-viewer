@@ -1,3 +1,5 @@
+import * as Types from './types.js';
+
 // WebKit uses a few special root folders, which need to be mapped manually
 //
 // [0]	roots.bookmark_bar
@@ -14,13 +16,14 @@
 
 export class WebKitBookmarks {
   constructor(data) {
+    /** @type {Types.WebKitJsonBookmarkRoot} */
     this.data = data;
   }
 
   /**
    * Returns true, if given object can be parsed as Mozilla json bookmarks.
    * 
-   * @param {Types.MozJsonBookmark} obj
+   * @param {Types.WebKitJsonBookmarkRoot} obj
    */
   static validate(obj) {
 		return obj.checksum && obj.roots && obj.version === 1;
@@ -57,7 +60,59 @@ export class WebKitBookmarks {
   }
 
   search(text) {
-    return { count: 0 }; // not implemented
+    let total_matches = 0, folders = [], path = [];
+
+    const regex = new RegExp(text, 'i');
+
+    const roots = this.data.roots;
+
+    // Push root onto stack
+    let stack = [];
+    
+    if (roots.bookmark_bar) {
+      stack.push({ folder: roots.bookmark_bar, level: 0 });
+    }
+
+    if (roots.other) {
+      stack.push({ folder: roots.other, level: 0 });
+    }
+
+    // Loop as long as there are children on the stack (this
+    // is a depth-first search of the subtree)
+    while (stack.length > 0) {
+      const c = stack.pop();
+
+      /** @type {Types.WebKitJsonBookmark} */
+      const f = c.folder;
+
+      // Current node has children
+      if (f.children) {
+        path.length = c.level;
+        path.push(f.name);
+
+        let items = [];
+
+        for (const b of f.children) {
+          let s = b.name || '';
+
+          if (b.url) {
+            if (regex.test(s) || regex.test(b.url)) {
+              items.push({ title: s, uri: b.url });
+            }
+          } else if (b.children) {
+            // Push child node onto stack
+            stack.push({ folder: b, level: c.level + 1 });
+          }
+        }
+
+        if (items.length > 0) {
+          total_matches += items.length;
+          folders.push({ items: items, path: path.slice(1) });
+        }
+      }
+    }
+
+    return { count: total_matches, folders: folders };
   }
 
   #is_bookmark(obj) {
@@ -114,8 +169,10 @@ export class WebKitBookmarks {
   }
 
   #root() {
+    const roots = this.data.roots;
+
     // Get top level folders (see special path mapping).
-    let sub = [], roots = this.data.roots;
+    let sub = [];
 
     let o = roots.bookmark_bar;
     if (o) {

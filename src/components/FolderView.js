@@ -39,9 +39,10 @@ export class FolderView {
   /**
    * Handle click on a bookmarks folder to open or close the subtree.
    *
-   * @param {Object} e - Object sent by the BookmarkDb 'select' event.
+   * @param {Types.SelectResult} e - Object sent by the BookmarkDb 'select' event.
    */
   update(e) {
+    /** @type {HTMLElement} */
     const parent = e.data ? e.data.target : this.root;
 
     const next = parent.nextElementSibling;
@@ -83,7 +84,7 @@ export class FolderView {
 
       // Append subfolders
       if (level === 0) {
-        this.root.append(...folders);
+        this.root.replaceChildren(...folders);
       } else {
         let container = createElement('div', ['container', 'L' + level]);
         container.append(...folders);

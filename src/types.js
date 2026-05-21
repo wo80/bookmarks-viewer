@@ -13,6 +13,25 @@
  */
 
 /**
+ * Represents a WebKit bookmark object
+ * @typedef {object} WebKitJsonBookmarkRoot
+ * @property {string} checksum - The bookmark checksum
+ * @property {{bookmark_bar: WebKitJsonBookmark, other: WebKitJsonBookmark}} roots - The bookmark root object
+ * @property {number} version - The bookmark format version
+ */
+
+/**
+ * Represents a WebKit bookmark object
+ * @typedef {object} WebKitJsonBookmark
+ * @property {string} guid - The bookmark guid
+ * @property {string} id - The bookmark id
+ * @property {string} name - The bookmark title
+ * @property {string?} url - The bookmark uri (only with type 'url')
+ * @property {string} type - The bookmark type ('folder' or 'url')
+ * @property {WebKitJsonBookmark[]?} children - The children (only with type 'folder')
+ */
+
+/**
  * Represents a bookmark object
  * @typedef {Object} BookmarkDb
  * @property {MozJsonBookmark} root - ...

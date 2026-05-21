@@ -35,3 +35,17 @@ test('test bookmarks.select [0, 1, 0]', () => {
   expect(title).toBe('Learn web development')
   expect(uri).toBe('https://developer.mozilla.org/en-US/docs/Learn_web_development')
 })
+
+test('test bookmarks.search "javascript"', () => {
+  const { count, folders } = db.search('javascript')
+  expect(count).toBe(3)
+  expect(folders.length).toBe(2)
+  expect(folders[0].items.length).toBe(2)
+  expect(folders[0].path).toStrictEqual(['WebDev', 'JavaScript'])
+  expect(folders[1].items.length).toBe(1)
+  expect(folders[1].path).toStrictEqual(['WebDev', 'MDN'])
+
+  const { title, uri } = folders[0].items[0]
+  expect(title).toBe('The Modern JavaScript Tutorial')
+  expect(uri).toBe('https://javascript.info/')
+})
