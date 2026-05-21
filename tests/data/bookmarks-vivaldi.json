@@ -1,0 +1,256 @@
+{
+   "checksum": "273256ddc1f1288dceb022c5c2beb115",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "children": [ {
+               "date_added": "13422405435596566",
+               "date_last_used": "0",
+               "guid": "b095403c-0348-4d47-b03e-c9b408bfc92b",
+               "id": "8",
+               "name": "Vivaldi Browser",
+               "type": "url",
+               "url": "https://vivaldi.com/"
+            }, {
+               "date_added": "13422405435596590",
+               "date_last_used": "0",
+               "guid": "848a4ba4-5f69-4a38-8ccc-d0cea9fe0709",
+               "id": "9",
+               "name": "Vivaldi Social",
+               "type": "url",
+               "url": "https://vivaldi.com/bk/sd-social"
+            }, {
+               "date_added": "13422405435596613",
+               "date_last_used": "0",
+               "guid": "cbe202d3-71df-4491-a825-448e4d745e43",
+               "id": "10",
+               "name": "Vivaldi Community",
+               "type": "url",
+               "url": "https://vivaldi.com/bk/sd-community-de"
+            } ],
+            "date_added": "13422405435596385",
+            "date_last_used": "0",
+            "date_modified": "13422405435596712",
+            "guid": "e5c019f8-c8a4-403c-99c8-d3502d7d09b3",
+            "id": "6",
+            "meta_info": {
+               "Partner": "e5c019f8-c8a4-403c-99c8-d3502d7d09b3",
+               "Speeddial": "true"
+            },
+            "name": "Startseite",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "children": [ {
+                  "date_added": "13423770058000000",
+                  "date_last_used": "0",
+                  "guid": "63a7a624-ef7e-4535-b0d4-27058fe21254",
+                  "id": "48",
+                  "name": "Learn web development",
+                  "type": "url",
+                  "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development"
+               }, {
+                  "date_added": "13423770062000000",
+                  "date_last_used": "0",
+                  "guid": "ea354790-ed51-41f9-958d-676ceb7c1b2e",
+                  "id": "49",
+                  "name": "HTML: HyperText Markup Language",
+                  "type": "url",
+                  "url": "https://developer.mozilla.org/en-US/docs/Web/HTML"
+               }, {
+                  "date_added": "13423770066000000",
+                  "date_last_used": "0",
+                  "guid": "14028497-fe4c-455d-9e37-0b1d9108b6ef",
+                  "id": "50",
+                  "name": "CSS: Cascading Style Sheets",
+                  "type": "url",
+                  "url": "https://developer.mozilla.org/en-US/docs/Web/CSS"
+               }, {
+                  "date_added": "13423770070000000",
+                  "date_last_used": "0",
+                  "guid": "cd1ec233-a372-4a15-90ce-dcc82dfd4822",
+                  "id": "51",
+                  "name": "JavaScript",
+                  "type": "url",
+                  "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
+               } ],
+               "date_added": "13423771860301249",
+               "date_last_used": "0",
+               "date_modified": "0",
+               "guid": "50838a4a-053d-456c-8165-b3943bb4e28e",
+               "id": "47",
+               "name": "MDN",
+               "type": "folder"
+            }, {
+               "children": [ {
+                  "date_added": "13423770077000000",
+                  "date_last_used": "0",
+                  "guid": "16569be8-7f35-4c85-a428-37a950f68292",
+                  "id": "53",
+                  "name": "The Modern JavaScript Tutorial",
+                  "type": "url",
+                  "url": "https://javascript.info/"
+               }, {
+                  "date_added": "13423770074000000",
+                  "date_last_used": "0",
+                  "guid": "e8d0332f-fc70-43d0-ad9d-97c58fc80575",
+                  "id": "54",
+                  "name": "Eloquent JavaScript",
+                  "type": "url",
+                  "url": "https://eloquentjavascript.net/"
+               } ],
+               "date_added": "13423771860301486",
+               "date_last_used": "0",
+               "date_modified": "0",
+               "guid": "4f70ccf8-67af-4057-bb62-ff5f2e5b5c29",
+               "id": "52",
+               "name": "JavaScript",
+               "type": "folder"
+            }, {
+               "children": [ {
+                  "date_added": "13423770511000000",
+                  "date_last_used": "0",
+                  "guid": "55a583dd-389c-4250-a3bf-364735083c6b",
+                  "id": "56",
+                  "name": "TypeScript",
+                  "type": "url",
+                  "url": "https://www.typescriptlang.org/docs/"
+               }, {
+                  "date_added": "13423770515000000",
+                  "date_last_used": "0",
+                  "guid": "e56aa09d-e09c-4829-8e8e-64cdcf6751f7",
+                  "id": "57",
+                  "name": "TypeScript Tutorials",
+                  "type": "url",
+                  "url": "https://learningtypescript.org/lessons"
+               } ],
+               "date_added": "13423771860301602",
+               "date_last_used": "0",
+               "date_modified": "0",
+               "guid": "67473eb8-4047-4153-a7e2-a0053d981780",
+               "id": "55",
+               "name": "TypeScript",
+               "type": "folder"
+            }, {
+               "date_added": "13423770054000000",
+               "date_last_used": "0",
+               "guid": "3a74b51e-8a68-4ec5-9eb0-58298f4c687a",
+               "id": "58",
+               "name": "web.dev",
+               "type": "url",
+               "url": "https://web.dev/"
+            }, {
+               "date_added": "13423770051000000",
+               "date_last_used": "0",
+               "guid": "2aceeab3-f5b6-4476-ae57-bf2cb7aa7695",
+               "id": "59",
+               "name": "DevDocs API Documentation",
+               "type": "url",
+               "url": "https://devdocs.io/"
+            }, {
+               "date_added": "13423770047000000",
+               "date_last_used": "0",
+               "guid": "941b3c41-9afd-427a-af66-9fcd1cd3826d",
+               "id": "60",
+               "name": "Can I Use",
+               "type": "url",
+               "url": "https://caniuse.com/"
+            } ],
+            "date_added": "13423771860301218",
+            "date_last_used": "0",
+            "date_modified": "0",
+            "guid": "da308822-dbd6-4aae-b5c1-90a9851bf164",
+            "id": "46",
+            "name": "WebDev",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13423770105000000",
+               "date_last_used": "0",
+               "guid": "07834b99-595f-42d7-8aaf-2cc4d726c271",
+               "id": "62",
+               "name": "Electronic Frontier Foundation",
+               "type": "url",
+               "url": "https://www.eff.org/"
+            }, {
+               "date_added": "13423770113000000",
+               "date_last_used": "0",
+               "guid": "37883bee-c5bf-4d47-a3b7-7ff6b88af410",
+               "id": "63",
+               "name": "Privacy Tools & Software Guide",
+               "type": "url",
+               "url": "https://www.privacytools.io/"
+            }, {
+               "date_added": "13423770117000000",
+               "date_last_used": "0",
+               "guid": "5cd362d7-d6c6-4f82-9fcd-d34516b951a5",
+               "id": "64",
+               "name": "Why Privacy Matters - Privacy Guides",
+               "type": "url",
+               "url": "https://www.privacyguides.org/en/basics/why-privacy-matters/"
+            }, {
+               "date_added": "13423770121000000",
+               "date_last_used": "0",
+               "guid": "886360d8-2fcc-44ff-b580-733e7a1b1ea1",
+               "id": "65",
+               "name": "gofoss.net - Digital freedom for all",
+               "type": "url",
+               "url": "https://gofoss.net/"
+            } ],
+            "date_added": "13423771860301849",
+            "date_last_used": "0",
+            "date_modified": "0",
+            "guid": "6b1c9e3e-7db7-474a-bebb-7888a81b923c",
+            "id": "61",
+            "name": "Privacy",
+            "type": "folder"
+         }, {
+            "date_added": "13423770554000000",
+            "date_last_used": "0",
+            "guid": "d79d25a8-d94f-4ce8-811d-2ba4c587f024",
+            "id": "66",
+            "name": "wo80/bookmarks-viewer",
+            "type": "url",
+            "url": "https://github.com/wo80/bookmarks-viewer"
+         } ],
+         "date_added": "13422405432476395",
+         "date_last_used": "0",
+         "date_modified": "13423771925088194",
+         "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+         "id": "1",
+         "name": "Lesezeichen",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "13422405432476395",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+         "id": "2",
+         "name": "Weitere Lesezeichen",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13422405432476395",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+         "id": "3",
+         "name": "Mobile Lesezeichen",
+         "type": "folder"
+      },
+      "trash": {
+         "children": [  ],
+         "date_added": "13422405432476395",
+         "date_last_used": "0",
+         "date_modified": "13423771948942318",
+         "guid": "9f32a0fb-bfd9-5032-be46-07afe4a25400",
+         "id": "4",
+         "name": "Papierkorb",
+         "type": "folder"
+      }
+   },
+   "version": 1
+}
