@@ -13,4 +13,4 @@ Open the bookmarks manager (_Ctrl+Shift+O_), select _Import and Backup_ > _Backu
 
 ### Chromium
 
-Chromium based browsers store the bookmarks in a file called _Bookmarks_ located in the user's profile directory (for example, Vivaldi uses the folder "%LocalAppData%\Vivaldi\User Data\Default").
+Chromium based browsers store the bookmarks in a file called _Bookmarks_ located in the user's profile directory (for example, Vivaldi uses the folder `%LocalAppData%\Vivaldi\User Data\Default`).
